@@ -13,23 +13,15 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
         with:
-          node-version: '14'
+          python-version: '3.8'
 
       - name: Install Dependencies
-        run: npm install
+        run: pip install -r requirements.txt
 
       - name: Run Tests
-        run: npm test
+        run: python -m unittest discover
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-
-    steps:
-      - name: Deploy to Production
-        # Add deployment steps, such as deploying to a server, cloud service, etc.
-        run: echo "Deploying to production..."
+# You can add more steps for deployment or other tasks as needed.
